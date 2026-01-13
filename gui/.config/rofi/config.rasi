@@ -1,4 +1,0 @@
-@theme "gruvbox-dark-hard"
-listview {
-	lines: 5;
-}

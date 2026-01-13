@@ -1,7 +1,0 @@
-*.ods diff=odf
-*.odt diff=odf
-*.odp diff=odf
-
-*.ods difftool=odf
-*.odt difftool=odf
-*.odp difftool=odf
