@@ -77,6 +77,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 -- setting up(taken from Jon's configuration)
 require("lazy").setup({
 	-- main color scheme
@@ -183,6 +184,18 @@ require("lazy").setup({
 			})
 			vim.lsp.enable('rust_analyzer')
 
+			-- Do not take semantic tokens from rust-analyzer, that used to corrupt the colorscheme
+			
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+					if client and client.name == "rust_analyzer" then
+						client.server_capabilities.semanticTokensProvider = nil
+					end
+				end,
+			})
+
 			-- Autoformat on save
 
 			vim.api.nvim_create_autocmd('LspAttach', {
@@ -249,5 +262,3 @@ require("lazy").setup({
 		end	
 	},
 })
-
-
