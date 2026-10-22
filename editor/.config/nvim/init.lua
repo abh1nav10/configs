@@ -20,8 +20,6 @@ vim.opt.smartcase = true
 vim.keymap.set('', 'H', '^')
 vim.keymap.set('', 'L', '$')
 
--- TODO: Integrate system clipboard
-
 -- No arrow keys(allowing them in insert mode for now)!!
 vim.keymap.set('n', '<up>', '<nop>')
 vim.keymap.set('n', '<down>', '<nop>')
@@ -31,6 +29,8 @@ vim.keymap.set('n', '<right>', '<nop>')
 --vim.keymap.set('i', '<down>', '<nop>')
 --vim.keymap.set('i', '<left>', '<nop>')
 --vim.keymap.set('i', '<right>', '<nop>')
+
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
 
 -- Always good to highlight yanked text
 vim.api.nvim_create_autocmd(
@@ -86,7 +86,6 @@ require("lazy").setup({
 		lazy = false, -- load at start
 		priority = 1000, -- load first
 		config = function()
-			-- TODO: Decide colorscheme as gruvbox-dark-hard is not working as intended
 			vim.cmd([[colorscheme gruvbox-dark-hard]])
 			vim.o.background = 'dark'
 			vim.cmd([[hi Normal ctermbg=NONE]])
@@ -185,7 +184,6 @@ require("lazy").setup({
 			vim.lsp.enable('rust_analyzer')
 
 			-- Do not take semantic tokens from rust-analyzer, that used to corrupt the colorscheme
-			
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
 					local client = vim.lsp.get_client_by_id(args.data.client_id)
